@@ -2,6 +2,8 @@ package at.aau.buildsdownloader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BuildsDownloader {
+    private static final Logger LOG = LoggerFactory.getLogger(BuildsDownloader.class);
 
     public String authenticationToken = "";
 
@@ -24,7 +27,7 @@ public class BuildsDownloader {
         List<Builds> builds = new ArrayList<>();
 
         for (int i = 0; i < numberOfBuilds; i += 100) {
-            System.out.println("Offset: " + i);
+            LOG.info("Offset: " + i);
             Builds currentBuilds = downloadBuilds(repoId, i);
             builds.add(currentBuilds);
         }
@@ -37,11 +40,9 @@ public class BuildsDownloader {
             for (Build build : buildss.getBuilds()) {
                 downloadLog(targetFolder, build);
             }
-            System.out.println("Waiting...");
+            LOG.info("Waiting...");
             try {Thread.sleep(30000);} catch (InterruptedException e) {}
         }
-
-
     }
 
 
@@ -59,7 +60,7 @@ public class BuildsDownloader {
                 redirect = true;
         }
 
-        System.out.println("Response Code ... " + status);
+        LOG.info("Response Code ... " + status);
 
         if (redirect) {
             con = retry(con);
@@ -106,7 +107,7 @@ public class BuildsDownloader {
                     redirect = true;
             }
 
-            System.out.println("Response Code ... " + status);
+            LOG.info("Response Code ... " + status);
 
             if (redirect) {
                 con = retry(con);
@@ -145,7 +146,7 @@ public class BuildsDownloader {
                 }
             }
 
-            System.out.println("Response Code ... " + status);
+            LOG.info("Response Code ... " + status);
             if (!skip) {
                 if (redirect) {
                     con = retry(con);
@@ -182,7 +183,7 @@ public class BuildsDownloader {
 //            con.addRequestProperty("User-Agent", "Mozilla");
 //            con.addRequestProperty("Referer", "google.com");
 
-        System.out.println("Redirect to URL : " + newUrl);
+        LOG.info("Redirect to URL : " + newUrl);
         return con;
     }
     private StringBuffer readResponseToStringBuffer(HttpURLConnection con) throws IOException {
