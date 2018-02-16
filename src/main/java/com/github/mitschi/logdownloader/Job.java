@@ -1,5 +1,5 @@
 
-package at.aau.buildsdownloader;
+package com.github.mitschi.logdownloader;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -19,9 +19,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
     "@type",
     "@href",
     "@representation",
-    "name"
+    "id"
 })
-public class Branch implements Serializable
+public class Job implements Serializable
 {
 
     @JsonProperty("@type")
@@ -30,32 +30,32 @@ public class Branch implements Serializable
     private String href;
     @JsonProperty("@representation")
     private String representation;
-    @JsonProperty("name")
-    private String name;
+    @JsonProperty("id")
+    private Long id;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = -621671695036252554L;
+    private final static long serialVersionUID = -1655114199119124076L;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public Branch() {
+    public Job() {
     }
 
     /**
      * 
+     * @param id
      * @param representation
-     * @param name
      * @param type
      * @param href
      */
-    public Branch(String type, String href, String representation, String name) {
+    public Job(String type, String href, String representation, Long id) {
         super();
         this.type = type;
         this.href = href;
         this.representation = representation;
-        this.name = name;
+        this.id = id;
     }
 
     @JsonProperty("@type")
@@ -88,14 +88,14 @@ public class Branch implements Serializable
         this.representation = representation;
     }
 
-    @JsonProperty("name")
-    public String getName() {
-        return name;
+    @JsonProperty("id")
+    public Long getId() {
+        return id;
     }
 
-    @JsonProperty("name")
-    public void setName(String name) {
-        this.name = name;
+    @JsonProperty("id")
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @JsonAnyGetter
@@ -110,12 +110,12 @@ public class Branch implements Serializable
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("type", type).append("href", href).append("representation", representation).append("name", name).append("additionalProperties", additionalProperties).toString();
+        return new ToStringBuilder(this).append("type", type).append("href", href).append("representation", representation).append("id", id).append("additionalProperties", additionalProperties).toString();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(additionalProperties).append(representation).append(name).append(type).append(href).toHashCode();
+        return new HashCodeBuilder().append(id).append(additionalProperties).append(representation).append(type).append(href).toHashCode();
     }
 
     @Override
@@ -123,11 +123,11 @@ public class Branch implements Serializable
         if (other == this) {
             return true;
         }
-        if ((other instanceof Branch) == false) {
+        if ((other instanceof Job) == false) {
             return false;
         }
-        Branch rhs = ((Branch) other);
-        return new EqualsBuilder().append(additionalProperties, rhs.additionalProperties).append(representation, rhs.representation).append(name, rhs.name).append(type, rhs.type).append(href, rhs.href).isEquals();
+        Job rhs = ((Job) other);
+        return new EqualsBuilder().append(id, rhs.id).append(additionalProperties, rhs.additionalProperties).append(representation, rhs.representation).append(type, rhs.type).append(href, rhs.href).isEquals();
     }
 
 }

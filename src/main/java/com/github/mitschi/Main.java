@@ -1,6 +1,6 @@
-package at.aau;
+package com.github.mitschi;
 
-import at.aau.buildsdownloader.BuildsDownloader;
+import com.github.mitschi.logdownloader.BuildsDownloader;
 
 import java.io.File;
 import java.io.IOException;

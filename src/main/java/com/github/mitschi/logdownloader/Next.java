@@ -1,5 +1,5 @@
 
-package at.aau.buildsdownloader;
+package com.github.mitschi.logdownloader;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
     "offset",
     "limit"
 })
-public class Last implements Serializable
+public class Next implements Serializable
 {
 
     @JsonProperty("@href")
@@ -31,13 +31,13 @@ public class Last implements Serializable
     private Long limit;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = -6212108845222028189L;
+    private final static long serialVersionUID = -1589667516356604575L;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public Last() {
+    public Next() {
     }
 
     /**
@@ -46,7 +46,7 @@ public class Last implements Serializable
      * @param offset
      * @param href
      */
-    public Last(String href, Long offset, Long limit) {
+    public Next(String href, Long offset, Long limit) {
         super();
         this.href = href;
         this.offset = offset;
@@ -108,10 +108,10 @@ public class Last implements Serializable
         if (other == this) {
             return true;
         }
-        if ((other instanceof Last) == false) {
+        if ((other instanceof Next) == false) {
             return false;
         }
-        Last rhs = ((Last) other);
+        Next rhs = ((Next) other);
         return new EqualsBuilder().append(limit, rhs.limit).append(additionalProperties, rhs.additionalProperties).append(offset, rhs.offset).append(href, rhs.href).isEquals();
     }
 

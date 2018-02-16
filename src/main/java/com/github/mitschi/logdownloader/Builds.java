@@ -1,8 +1,10 @@
 
-package at.aau.buildsdownloader;
+package com.github.mitschi.logdownloader;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
@@ -19,10 +21,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
     "@type",
     "@href",
     "@representation",
-    "id",
-    "login"
+    "@pagination",
+    "builds"
 })
-public class CreatedBy implements Serializable
+public class Builds implements Serializable
 {
 
     @JsonProperty("@type")
@@ -31,36 +33,36 @@ public class CreatedBy implements Serializable
     private String href;
     @JsonProperty("@representation")
     private String representation;
-    @JsonProperty("id")
-    private Long id;
-    @JsonProperty("login")
-    private String login;
+    @JsonProperty("@pagination")
+    private Pagination pagination;
+    @JsonProperty("builds")
+    private List<Build> builds = new ArrayList<Build>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
-    private final static long serialVersionUID = -4733961151431003409L;
+    private final static long serialVersionUID = -3095215269818650825L;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public CreatedBy() {
+    public Builds() {
     }
 
     /**
      * 
-     * @param id
+     * @param builds
      * @param representation
-     * @param login
+     * @param pagination
      * @param type
      * @param href
      */
-    public CreatedBy(String type, String href, String representation, Long id, String login) {
+    public Builds(String type, String href, String representation, Pagination pagination, List<Build> builds) {
         super();
         this.type = type;
         this.href = href;
         this.representation = representation;
-        this.id = id;
-        this.login = login;
+        this.pagination = pagination;
+        this.builds = builds;
     }
 
     @JsonProperty("@type")
@@ -93,24 +95,24 @@ public class CreatedBy implements Serializable
         this.representation = representation;
     }
 
-    @JsonProperty("id")
-    public Long getId() {
-        return id;
+    @JsonProperty("@pagination")
+    public Pagination getPagination() {
+        return pagination;
     }
 
-    @JsonProperty("id")
-    public void setId(Long id) {
-        this.id = id;
+    @JsonProperty("@pagination")
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
     }
 
-    @JsonProperty("login")
-    public String getLogin() {
-        return login;
+    @JsonProperty("builds")
+    public List<Build> getBuilds() {
+        return builds;
     }
 
-    @JsonProperty("login")
-    public void setLogin(String login) {
-        this.login = login;
+    @JsonProperty("builds")
+    public void setBuilds(List<Build> builds) {
+        this.builds = builds;
     }
 
     @JsonAnyGetter
@@ -125,12 +127,12 @@ public class CreatedBy implements Serializable
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this).append("type", type).append("href", href).append("representation", representation).append("id", id).append("login", login).append("additionalProperties", additionalProperties).toString();
+        return new ToStringBuilder(this).append("type", type).append("href", href).append("representation", representation).append("pagination", pagination).append("builds", builds).append("additionalProperties", additionalProperties).toString();
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(id).append(additionalProperties).append(representation).append(login).append(type).append(href).toHashCode();
+        return new HashCodeBuilder().append(builds).append(additionalProperties).append(representation).append(pagination).append(type).append(href).toHashCode();
     }
 
     @Override
@@ -138,11 +140,11 @@ public class CreatedBy implements Serializable
         if (other == this) {
             return true;
         }
-        if ((other instanceof CreatedBy) == false) {
+        if ((other instanceof Builds) == false) {
             return false;
         }
-        CreatedBy rhs = ((CreatedBy) other);
-        return new EqualsBuilder().append(id, rhs.id).append(additionalProperties, rhs.additionalProperties).append(representation, rhs.representation).append(login, rhs.login).append(type, rhs.type).append(href, rhs.href).isEquals();
+        Builds rhs = ((Builds) other);
+        return new EqualsBuilder().append(builds, rhs.builds).append(additionalProperties, rhs.additionalProperties).append(representation, rhs.representation).append(pagination, rhs.pagination).append(type, rhs.type).append(href, rhs.href).isEquals();
     }
 
 }

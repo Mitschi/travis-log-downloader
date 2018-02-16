@@ -1,5 +1,5 @@
 
-package at.aau.buildsdownloader;
+package com.github.mitschi.logdownloader;
 
 import java.io.Serializable;
 import java.util.HashMap;

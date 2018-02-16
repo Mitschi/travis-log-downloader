@@ -1,4 +1,4 @@
-package at.aau.buildsdownloader;
+package com.github.mitschi.logdownloader;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
